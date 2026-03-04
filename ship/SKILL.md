@@ -62,7 +62,7 @@ git log --oneline -5
 
 - **绝不使用 `--no-verify`** 跳过 git hooks
 - **绝不使用 `--amend`**，始终创建新 commit
-- commit 消息必须使用 HEREDOC 格式传递：
+- commit 消息必须使用 HEREDOC 格式传递，且**不要**添加 `Co-Authored-By` 签名行：
   ```bash
   git commit -m "$(cat <<'EOF'
   feat: 描述变更内容

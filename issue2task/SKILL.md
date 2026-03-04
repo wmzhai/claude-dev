@@ -43,6 +43,11 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
 
 在项目根目录创建 `tasks/` 目录（如已存在则复用），每个任务生成一个 md 文件。
 
+**确定起始编号**：生成前先检查已有任务的最大编号，新任务从最大编号+1 开始。按以下优先级查找：
+1. 先看 `tasks/` 目录下现有的 `T{序号}-*.md` 文件
+2. 如果 `tasks/` 下没有任务文件，再看 `tasks/done/` 目录下已完成的任务文件
+3. 都没有则从 T01 开始
+
 **文件命名**: `T{序号}-{简短描述}.md`，序号两位补零，如 `T01-init-db-schema.md`
 
 **文件模板**:
