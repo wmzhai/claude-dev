@@ -15,6 +15,7 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 | Skill | 命令 | 说明 |
 |-------|------|------|
 | [issue2task](#issue2task) | `/issue2task` | 从 GitHub Issues 拆解为有序开发任务 |
+| [plantask](#plantask) | `/plantask` | 读取任务并进入 plan mode 规划实现方案 |
 | [checktask](#checktask) | `/checktask` | 验收任务并更新完成状态 |
 | [ship](#ship) | `/ship` | 提交、推送、可选版本部署 |
 
@@ -38,6 +39,29 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 - `tasks/README.md` — 任务索引表
 
 每个任务文件包含来源 Issue、任务描述、验收标准（checkbox 列表）和前置依赖。任务粒度控制在 1-3 小时可完成。
+
+---
+
+### plantask
+
+读取 `tasks/` 目录下编号最小的待办任务，深入分析需求和现有代码，进入 plan mode 输出详细实现方案。
+
+**用法：**
+
+```
+/plantask              # 规划编号最小的待处理任务
+/plantask T05          # 规划指定任务
+```
+
+**流程：**
+
+1. 定位 `tasks/` 下目标任务文件，提取需求和验收标准
+2. 调用 `EnterPlanMode` 进入规划模式
+3. 探索相关代码，分析影响范围，设计实现方案
+4. 输出包含文件清单、实现细节、实现顺序的完整规划
+5. 使用 `ExitPlanMode` 提交规划，等待用户确认后再编码
+
+注意：规划阶段只做研究和设计，不会编辑任何代码文件。
 
 ---
 
@@ -95,11 +119,12 @@ Commit 消息自动使用 conventional commits 格式，附带 `Co-Authored-By: 
 
 ```
 /issue2task          # 1. 将 Issues 拆解为任务
-                     # 2. 按任务顺序逐个开发
-/checktask           # 3. 验收当前任务
-/ship                # 4. 提交推送
-                     # 重复 2-4 直到所有任务完成
-/ship v1.0.0         # 5. 发版部署
+/plantask            # 2. 规划当前任务的实现方案
+                     # 3. 确认方案后编码实现
+/checktask           # 4. 验收当前任务
+/ship                # 5. 提交推送
+                     # 重复 2-5 直到所有任务完成
+/ship v1.0.0         # 6. 发版部署
 ```
 
 ## 编写新 Skill
