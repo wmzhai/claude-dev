@@ -12,13 +12,23 @@ allowed-tools: Bash, Read, Write, Glob, Grep, Agent
 
 ### 1. 获取 Issues
 
-使用 `gh` CLI 获取当前仓库所有 open issues 的详细信息：
+首先判断 `$ARGUMENTS` 是否为单个 issue 编号（纯数字或 `#数字` 格式，如 `42` 或 `#42`）：
+
+**如果是单个 issue 编号**，使用 `gh issue view` 获取该 issue：
+
+```bash
+# 去掉可能的 # 前缀，提取数字
+gh issue view {编号} --json number,title,body,labels,comments,milestone,assignees
+```
+
+**否则**，使用 `gh issue list` 获取多个 issues：
 
 ```bash
 gh issue list --state open --json number,title,body,labels,comments,milestone,assignees --limit 200 $ARGUMENTS
 ```
 
 `$ARGUMENTS` 可用于传入额外筛选条件，例如：
+- `42` 或 `#42` — 获取单个指定 issue
 - `--label "feature"` — 只看某个 label
 - `--milestone "v2.0"` — 只看某个 milestone
 
