@@ -60,6 +60,7 @@ git log --oneline -5
 
 ## 重要注意事项
 
+- **提交所有变更，不做任何过滤**：`git add -A` 后直接提交，不要对任何文件做额外判断（如跳过 todo.md、忽略某类文件等）。用户会在执行 `/ship` 前自行清理不需要提交的文件，skill 只管全部提交。
 - **绝不使用 `--no-verify`** 跳过 git hooks
 - **绝不使用 `--amend`**，始终创建新 commit
 - commit 消息必须使用 HEREDOC 格式传递，且**不要**添加 `Co-Authored-By` 签名行：
