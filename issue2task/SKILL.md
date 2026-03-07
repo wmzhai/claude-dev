@@ -2,6 +2,8 @@
 name: issue2task
 description: 分析 GitHub Issues 并拆解为有序的独立开发任务文件
 allowed-tools: Bash, Read, Write, Glob, Grep, Agent
+disable-model-invocation: true
+argument-hint: "[issue-number or filters]"
 ---
 
 # Issue to Task — GitHub Issues 拆解为开发任务

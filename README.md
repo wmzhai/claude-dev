@@ -111,7 +111,7 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 2. 提交变更（如有）并推送
 3. 创建 git tag 并推送，触发 CI/CD 部署
 
-Commit 消息自动使用 conventional commits 格式，附带 `Co-Authored-By: Claude`。
+Commit 消息自动使用 conventional commits 格式。
 
 ---
 
@@ -136,6 +136,8 @@ Commit 消息自动使用 conventional commits 格式，附带 `Co-Authored-By: 
 name: skill-name
 description: 一句话描述
 allowed-tools: Bash, Read, Write, ...
+disable-model-invocation: true       # 可选，有副作用的 skill 设为 true
+argument-hint: "[arg-description]"   # 可选，自动补全中的参数提示
 ---
 
 # 标题
@@ -143,4 +145,4 @@ allowed-tools: Bash, Read, Write, ...
 执行指令（支持 $ARGUMENTS 引用用户参数）
 ```
 
-`allowed-tools` 只授权实际需要的工具，遵循最小权限原则。
+`allowed-tools` 只授权实际需要的工具，遵循最小权限原则。有副作用的 skill 应设置 `disable-model-invocation: true` 防止自动调用。

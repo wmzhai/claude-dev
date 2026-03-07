@@ -2,6 +2,8 @@
 name: ship
 description: 提交代码并推送，可选版本号触发部署
 allowed-tools: Bash, Read, Glob, Grep
+disable-model-invocation: true
+argument-hint: "[version]"
 ---
 
 # Ship — 提交、推送、可选部署

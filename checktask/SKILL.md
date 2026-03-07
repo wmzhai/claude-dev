@@ -2,6 +2,8 @@
 name: checktask
 description: 检查 tasks 目录下最前面的任务文件，验收并更新状态，完成则移入 done 目录
 allowed-tools: Bash, Read, Edit, Write, Glob, Grep, Agent, Skill
+disable-model-invocation: true
+argument-hint: "[task-id]"
 ---
 
 # CheckTask — 任务验收与状态更新

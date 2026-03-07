@@ -21,6 +21,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 name: skill-name
 description: 一句话描述
 allowed-tools: Bash, Read, Write, ...
+disable-model-invocation: true       # 可选，有副作用的 skill 设为 true
+argument-hint: "[arg-description]"   # 可选，自动补全中的参数提示
 ---
 
 # 标题
@@ -31,8 +33,9 @@ allowed-tools: Bash, Read, Write, ...
 ## 现有 Skills
 
 - **issue2task** — 从 GitHub Issues 拆解为 `tasks/` 目录下的有序开发任务文件
-- **ship** — 提交代码并推送，可选带版本号（`/ship v0.1.3`）创建 tag 触发部署
+- **plantask** — 读取任务文件，进入 plan mode 规划实现方案
 - **checktask** — 验收 `tasks/` 下编号最小的任务，逐项检查验收标准，通过则移入 `tasks/done/`
+- **ship** — 提交代码并推送，可选带版本号（`/ship v0.1.3`）创建 tag 触发部署
 
 ## Skills 之间的协作关系
 
@@ -45,3 +48,4 @@ allowed-tools: Bash, Read, Write, ...
 - 用户参数通过 `$ARGUMENTS` 变量传入
 - 执行指令应结构清晰，分步骤描述，包含异常处理
 - skill 不应自行 git commit，提交由用户或 `/ship` 统一处理
+- 有副作用的 skill（写文件、推代码、调外部 API）应设置 `disable-model-invocation: true`
