@@ -39,7 +39,7 @@ argument-hint: "[arg-description]"   # 可选，自动补全中的参数提示
 
 ## Skills 之间的协作关系
 
-`issue2task` → 生成任务文件 → 开发者实现 → `checktask` 验收 → `ship` 提交推送
+`issue2task` → `plantask` → 开发者实现 → `checktask` 验收 → `ship` 提交推送
 
 ## 编写新 Skill 的约定
 

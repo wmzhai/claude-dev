@@ -1,7 +1,7 @@
 ---
 name: issue2task
 description: 分析 GitHub Issues 并拆解为有序的独立开发任务文件
-allowed-tools: Bash, Read, Write, Glob, Grep, Agent
+allowed-tools: Bash, Read, Write, Glob, Grep, Agent, AskUserQuestion
 disable-model-invocation: true
 argument-hint: "[issue-number or filters]"
 ---
@@ -50,6 +50,8 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
   3. 后端逻辑 / API / Server Actions
   4. 前端 UI / 页面 / 组件
   5. 测试 / 文档 / 优化
+
+如果涉及**合并多个 issue 为一个任务**或**拆分单个 issue 为多个任务**，使用 `AskUserQuestion` 向用户展示合并/拆分方案并确认，避免自行决定任务划分。
 
 ### 3. 生成任务文件
 
@@ -119,4 +121,4 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
 - 每个任务应该是 **可独立提交** 的，完成后项目仍可正常运行
 - 如果 issue 中有明确的技术方案讨论，应体现在任务描述中
 - 保留 issue 原文中的关键细节，不要过度精简丢失信息
-- 如果项目中已有 `tasks/` 目录且包含旧任务文件，先提示用户确认是否覆盖
+- 新任务编号从已有最大编号+1 开始，不会覆盖已有任务文件

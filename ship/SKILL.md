@@ -44,10 +44,11 @@ git log --oneline -5
 1. **校验版本号格式**：版本号必须匹配 `v\d+\.\d+\.\d+`（如 `v0.1.3`、`v1.0.0`）。格式不对则报错并停止。
 2. **检查 tag 是否已存在**：运行 `git tag -l <version>`，如果已存在则报错并停止。
 3. **提交变更（如有）**：如果有未提交变更，执行 `git add -A` → 分析变更 → 生成 conventional commit 消息 → `git commit`（同路径 A 的 HEREDOC 格式）。如果 pre-commit hook 修改了文件，重新 stage 并创建新 commit。
-4. **推送代码**：运行 `git push` 推送到远程。
-5. **创建 tag**：运行 `git tag <version>`。
-6. **推送 tag**：运行 `git push origin <version>` 触发 CI/CD。
-7. **提示用户**：告知 tag 已推送，CI 将自动触发并部署。
+4. **运行本地 CI（如有）**：同路径 A，检查并执行 `bun run ci`。失败则停止流程，不创建 tag。
+5. **推送代码**：运行 `git push` 推送到远程。
+6. **创建 tag**：运行 `git tag <version>`。
+7. **推送 tag**：运行 `git push origin <version>` 触发 CI/CD。
+8. **提示用户**：告知 tag 已推送，CI 将自动触发并部署。
 
 ---
 
@@ -73,4 +74,4 @@ git log --oneline -5
   )"
   ```
 - 版本号参数从 `$ARGUMENTS` 变量读取
-- 路径 B 不运行本地 CI（CI 由 GitHub Actions 在 tag 推送后自动运行）
+- 路径 B 在创建 tag 之前运行本地 CI，避免 CI 失败但 tag 已推出的情况

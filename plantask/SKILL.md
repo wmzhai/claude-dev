@@ -1,7 +1,7 @@
 ---
 name: plantask
 description: 读取 tasks 目录下第一个待办任务，进入 plan mode 做实现规划
-allowed-tools: Bash, Read, Glob, Grep, Agent, EnterPlanMode, AskUserQuestion
+allowed-tools: Bash, Read, Glob, Grep, Agent, EnterPlanMode, ExitPlanMode, AskUserQuestion
 argument-hint: "[task-id]"
 ---
 
