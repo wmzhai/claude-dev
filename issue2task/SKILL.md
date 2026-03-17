@@ -40,10 +40,9 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
 
 仔细阅读每个 issue 的标题、正文、标签和评论，然后：
 
-- **理解全貌**：梳理项目当前的整体需求图景
+- **默认一对一**：每个 issue 直接对应一个任务，不做拆分
 - **识别依赖**：哪些 issue 之间存在前后依赖关系
-- **合并相关**：将高度相关的小 issue 合并为一个任务
-- **拆分过大**：将过于庞大的 issue 拆分为多个可独立完成的任务
+- **合并相关**：将高度相关的小 issue 合并为一个任务（需确认）
 - **排定顺序**：按开发逻辑排序，遵循以下优先级：
   1. 基础设施 / 配置 / 环境
   2. 数据模型 / 数据库变更
@@ -51,7 +50,7 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
   4. 前端 UI / 页面 / 组件
   5. 测试 / 文档 / 优化
 
-如果涉及**合并多个 issue 为一个任务**或**拆分单个 issue 为多个任务**，使用 `AskUserQuestion` 向用户展示合并/拆分方案并确认，避免自行决定任务划分。
+**重要原则**：不要主动拆分 issue。只有当用户明确要求拆分时才将一个 issue 拆为多个任务。如果涉及**合并多个 issue 为一个任务**，使用 `AskUserQuestion` 向用户确认。
 
 ### 3. 生成任务文件
 
@@ -117,7 +116,7 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
 
 ## 注意事项
 
-- 任务粒度应控制在 **1-3 个小时** 可完成的范围
+- 默认一个 issue 生成一个任务，不做过度拆分
 - 每个任务应该是 **可独立提交** 的，完成后项目仍可正常运行
 - 如果 issue 中有明确的技术方案讨论，应体现在任务描述中
 - 保留 issue 原文中的关键细节，不要过度精简丢失信息
