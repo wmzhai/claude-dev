@@ -131,22 +131,7 @@ gh issue list --state open --json number,title,body,labels,comments,milestone,as
 {记录需求澄清过程中确认的关键决策、边界情况约定、scope 取舍等，如无则省略此节}
 ```
 
-### 5. 生成索引
-
-所有任务文件创建完成后，生成 `tasks/README.md` 作为索引：
-
-```markdown
-# 任务列表
-
-> 由 `/issue2task` 从 GitHub Issues 自动生成
-
-| 序号 | 任务 | 来源 Issue | 前置依赖 |
-|------|------|-----------|----------|
-| T01 | [任务标题](T01-xxx.md) | #1, #2 | 无 |
-| T02 | [任务标题](T02-xxx.md) | #3 | T01 |
-```
-
-### 6. 输出摘要
+### 5. 输出摘要
 
 最后向用户输出一份简要摘要：
 - 共分析了多少个 issues

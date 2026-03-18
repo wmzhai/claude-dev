@@ -14,7 +14,7 @@ argument-hint: "[task-id]"
 
 ### Step 1 — 定位目标任务文件
 
-在项目根目录的 `tasks/` 下找到编号最小的 `.md` 文件（按文件名排序，忽略 `done/` 子目录和 `README.md`）。
+在项目根目录的 `tasks/` 下找到编号最小的 `.md` 文件（按文件名排序，忽略 `done/` 子目录）。
 
 如果 `$ARGUMENTS` 不为空，则将其视为指定的任务文件名（如 `T04` 或 `T04-topic-grade-level.md`），定位该文件。
 
