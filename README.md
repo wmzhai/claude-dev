@@ -10,6 +10,18 @@
 git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 ```
 
+## 典型工作流
+
+```
+/issue2task 42       # 1. 将 Issue 拆解为任务
+/plantask            # 2. 规划当前任务的实现方案
+                     # 3. 确认方案后编码实现
+/checktask           # 4. 验收当前任务
+/ship                # 5. 提交推送
+                     # 重复 2-5 直到所有任务完成
+/ship v1.0.0         # 6. 发版部署
+```
+
 ## Skills 一览
 
 | Skill | 命令 | 说明 |
@@ -28,17 +40,15 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 **用法：**
 
 ```
-/issue2task                          # 分析所有 open issues
-/issue2task --label "feature"        # 只分析特定 label
-/issue2task --milestone "v2.0"       # 只分析特定 milestone
+/issue2task 42                       # 分析指定 issue 并生成任务
+/issue2task #42                      # 同上，# 前缀可选
 ```
 
 **产出：**
 
-- `tasks/T01-xxx.md`, `tasks/T02-xxx.md` ... — 按依赖顺序编号的任务文件
-- `tasks/README.md` — 任务索引表
+- `tasks/T{序号}-xxx.md` — 任务文件
 
-每个任务文件包含来源 Issue、任务描述、验收标准（checkbox 列表）和前置依赖。任务粒度控制在 1-3 小时可完成。
+每个任务文件包含来源 Issue、任务描述、验收标准（checkbox 列表）和前置依赖。
 
 ---
 
@@ -114,18 +124,6 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 Commit 消息自动使用 conventional commits 格式。
 
 ---
-
-## 典型工作流
-
-```
-/issue2task          # 1. 将 Issues 拆解为任务
-/plantask            # 2. 规划当前任务的实现方案
-                     # 3. 确认方案后编码实现
-/checktask           # 4. 验收当前任务
-/ship                # 5. 提交推送
-                     # 重复 2-5 直到所有任务完成
-/ship v1.0.0         # 6. 发版部署
-```
 
 ## 编写新 Skill
 

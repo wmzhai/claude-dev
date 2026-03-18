@@ -3,7 +3,7 @@ name: issue2task
 description: 分析 GitHub Issues 并拆解为有序的独立开发任务文件
 allowed-tools: Bash, Read, Write, Glob, Grep, Agent, AskUserQuestion
 disable-model-invocation: true
-argument-hint: "[issue-number or filters]"
+argument-hint: "<issue-number>"
 ---
 
 # Issue to Task — 需求分析与任务拆解
@@ -14,29 +14,14 @@ argument-hint: "[issue-number or filters]"
 
 ## 执行流程
 
-### 1. 获取 Issues
+### 1. 获取 Issue
 
-首先判断 `$ARGUMENTS` 是否为单个 issue 编号（纯数字或 `#数字` 格式，如 `42` 或 `#42`）：
-
-**如果是单个 issue 编号**，使用 `gh issue view` 获取该 issue：
+`$ARGUMENTS` 为必填的 issue 编号（纯数字或 `#数字` 格式，如 `42` 或 `#42`）。如果为空，使用 `AskUserQuestion` 询问用户要分析哪个 issue。
 
 ```bash
 # 去掉可能的 # 前缀，提取数字
 gh issue view {编号} --json number,title,body,labels,comments,milestone,assignees
 ```
-
-**否则**，使用 `gh issue list` 获取多个 issues：
-
-```bash
-gh issue list --state open --json number,title,body,labels,comments,milestone,assignees --limit 200 $ARGUMENTS
-```
-
-`$ARGUMENTS` 可用于传入额外筛选条件，例如：
-- `42` 或 `#42` — 获取单个指定 issue
-- `--label "feature"` — 只看某个 label
-- `--milestone "v2.0"` — 只看某个 milestone
-
-如果 `$ARGUMENTS` 为空，则获取所有 open issues。
 
 ### 2. 阅读代码，理解现状
 
