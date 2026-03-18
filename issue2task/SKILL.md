@@ -3,7 +3,7 @@ name: issue2task
 description: 分析 GitHub Issues 并拆解为有序的独立开发任务文件
 allowed-tools: Bash, Read, Write, Glob, Grep, Agent, AskUserQuestion
 disable-model-invocation: true
-argument-hint: "<issue-number>"
+argument-hint: "[issue-number]"
 ---
 
 # Issue to Task — 需求分析与任务拆解
@@ -16,10 +16,17 @@ argument-hint: "<issue-number>"
 
 ### 1. 获取 Issue
 
-`$ARGUMENTS` 为必填的 issue 编号（纯数字或 `#数字` 格式，如 `42` 或 `#42`）。如果为空，使用 `AskUserQuestion` 询问用户要分析哪个 issue。
+`$ARGUMENTS` 为 issue 编号（纯数字或 `#数字` 格式，如 `42` 或 `#42`）。
+
+如果 `$ARGUMENTS` 为空，自动获取编号最小的 open issue：
 
 ```bash
-# 去掉可能的 # 前缀，提取数字
+gh issue list --state open --json number --jq 'sort_by(.number)[0].number'
+```
+
+然后用获取到的编号继续：
+
+```bash
 gh issue view {编号} --json number,title,body,labels,comments,milestone,assignees
 ```
 
