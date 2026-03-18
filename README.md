@@ -13,12 +13,13 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 ## 典型工作流
 
 ```
-/issue2task 42       # 1. 将 Issue 拆解为任务
+# 在 GitHub 上创建 Issue 描述工作需求（每个 Issue 对应一个独立任务）
+/issue2task 42       # 1. 分析 Issue，生成任务文件
 /plantask            # 2. 规划当前任务的实现方案
                      # 3. 确认方案后编码实现
 /checktask           # 4. 验收当前任务
 /ship                # 5. 提交推送
-                     # 重复 2-5 直到所有任务完成
+                     # 重复 1-5 处理下一个 Issue
 /ship v1.0.0         # 6. 发版部署
 ```
 
