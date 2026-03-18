@@ -73,12 +73,9 @@ gh issue view {编号} --json number,title,body,labels,comments,milestone,assign
 
 在项目根目录创建 `tasks/` 目录（如已存在则复用），每个任务生成一个 md 文件。
 
-**确定起始编号**：生成前先检查已有任务的最大编号，新任务从最大编号+1 开始。按以下优先级查找：
-1. 先看 `tasks/` 目录下现有的 `T{序号}-*.md` 文件
-2. 如果 `tasks/` 下没有任务文件，再看 `tasks/done/` 目录下已完成的任务文件
-3. 都没有则从 T01 开始
+**编号规则**：直接使用 Issue 编号作为任务编号。例如 Issue `#14` 对应任务 `T14`。
 
-**文件命名**: `T{序号}-{简短描述}.md`，序号两位补零，如 `T01-init-db-schema.md`
+**文件命名**: `T{issue编号}-{简短描述}.md`，如 `T14-init-db-schema.md`
 
 **文件模板**:
 
@@ -129,4 +126,4 @@ gh issue view {编号} --json number,title,body,labels,comments,milestone,assign
 - 每个任务应该是 **可独立提交** 的，完成后项目仍可正常运行
 - 如果 issue 中有明确的技术方案讨论，应体现在任务描述中
 - 保留 issue 原文中的关键细节，不要过度精简丢失信息
-- 新任务编号从已有最大编号+1 开始，不会覆盖已有任务文件
+- 任务编号直接使用 Issue 编号，保持一一对应
