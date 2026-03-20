@@ -4,11 +4,26 @@
 
 ## 安装
 
-将本仓库克隆到 `~/.claude/skills/` 目录即可被 Claude Code 自动加载：
+仓库可以 clone 到任意目录，安装通过 `./setup` 完成：
 
 ```bash
-git clone git@github.com:wmzhai/skills.git ~/.claude/skills
+git clone git@github.com:wmzhai/claude-dev.git
+cd claude-dev
+./setup
 ```
+
+`./setup` 会把当前仓库安装到 `~/.claude/skills/`：
+
+```text
+~/.claude/skills/
+├── claude-dev -> /path/to/your/clone
+├── issue2task -> claude-dev/issue2task
+├── plantask -> claude-dev/plantask
+├── checktask -> claude-dev/checktask
+└── ships -> claude-dev/ships
+```
+
+如果检测到旧布局是“直接把整个仓库放进 `~/.claude/skills`”，`./setup` 会自动迁移并清理这套旧安装留下的 `.git`、`CLAUDE.md`、`README.md`、`.gitignore` 以及本项目旧 skill 目录；不会删除 `gstack`、`gstack-*` 或其他无关条目。
 
 ## 典型工作流
 
@@ -17,9 +32,9 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 3. **`/plantask`** — 读取任务，进入 plan mode 规划实现方案
 4. **编码迭代** — 确认方案后 Claude 开始编码，过程中与用户反复交流，调整细节直到满意
 5. **`/checktask`** — 逐项验收任务的完成标准
-6. **`/ship`** — 提交并推送代码
+6. **`/ships`** — 提交并推送代码
 7. 重复 1-6 处理下一个 Issue
-8. **`/ship v1.0.0`** — 发版部署
+8. **`/ships v1.0.0`** — 发版部署
 
 ## Skills 一览
 
@@ -28,7 +43,7 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 | [issue2task](#issue2task) | `/issue2task` | 从 GitHub Issues 拆解为有序开发任务 |
 | [plantask](#plantask) | `/plantask` | 读取任务并进入 plan mode 规划实现方案 |
 | [checktask](#checktask) | `/checktask` | 验收任务并更新完成状态 |
-| [ship](#ship) | `/ship` | 提交、推送、可选版本部署 |
+| [ships](#ships) | `/ships` | 提交、推送、可选版本部署 |
 
 ---
 
@@ -97,24 +112,24 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 
 ---
 
-### ship
+### ships
 
 一键提交代码并推送到远程，可选创建版本 tag 触发部署。
 
 **用法：**
 
 ```
-/ship                   # 运行 CI → 提交 → 推送
-/ship v0.1.3            # 提交 → 推送 → 创建 tag → 触发部署
+/ships                  # 运行 CI → 提交 → 推送
+/ships v0.1.3           # 提交 → 推送 → 创建 tag → 触发部署
 ```
 
-**无版本号 (`/ship`)：**
+**无版本号 (`/ships`)：**
 
 1. 运行 `bun run ci`，失败则中止
 2. 暂存所有变更，自动生成 conventional commit 消息
 3. 提交并推送
 
-**带版本号 (`/ship v0.1.3`)：**
+**带版本号 (`/ships v0.1.3`)：**
 
 1. 校验版本号格式 (`vX.Y.Z`)
 2. 提交变更（如有）并推送
@@ -123,6 +138,14 @@ git clone git@github.com:wmzhai/skills.git ~/.claude/skills
 Commit 消息自动使用 conventional commits 格式。
 
 ---
+
+## 测试安装脚本
+
+可以运行下面的 smoke test 验证 `./setup` 的全新安装、旧布局迁移、幂等性和冲突处理：
+
+```bash
+./test/setup-smoke.sh
+```
 
 ## 编写新 Skill
 

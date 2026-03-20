@@ -1,12 +1,12 @@
 ---
-name: ship
+name: ships
 description: 提交代码并推送，可选版本号触发部署
 allowed-tools: Bash, Read, Glob, Grep
 disable-model-invocation: true
 argument-hint: "[version]"
 ---
 
-# Ship — 提交、推送、可选部署
+# Ships — 提交、推送、可选部署
 
 将当前工作区变更提交并推送到远程。如果提供版本号参数，还会创建 git tag 触发 CI/CD 自动部署。
 
@@ -28,7 +28,7 @@ git log --oneline -5
 
 ---
 
-### 路径 A：无参数（`/ship`）
+### 路径 A：无参数（`/ships`）
 
 1. **运行本地 CI（如有）**：先检查 `package.json` 中是否存在 `ci` script（或项目是否有 `package.json`）。如果没有则直接跳过此步，不要尝试运行。如果有，执行 `bun run ci`，失败则停止流程并向用户报告具体错误，不要继续提交。
 2. **暂存变更**：CI 通过后，运行 `git add -A` 暂存所有变更。
@@ -39,7 +39,7 @@ git log --oneline -5
 
 ---
 
-### 路径 B：带版本号（如 `/ship v0.1.3`）
+### 路径 B：带版本号（如 `/ships v0.1.3`）
 
 1. **校验版本号格式**：版本号必须匹配 `v\d+\.\d+\.\d+`（如 `v0.1.3`、`v1.0.0`）。格式不对则报错并停止。
 2. **检查 tag 是否已存在**：运行 `git tag -l <version>`，如果已存在则报错并停止。
@@ -63,7 +63,7 @@ git log --oneline -5
 
 ## 重要注意事项
 
-- **提交所有变更，不做任何过滤**：`git add -A` 后直接提交，不要对任何文件做额外判断（如跳过 todo.md、忽略某类文件等）。用户会在执行 `/ship` 前自行清理不需要提交的文件，skill 只管全部提交。
+- **提交所有变更，不做任何过滤**：`git add -A` 后直接提交，不要对任何文件做额外判断（如跳过 todo.md、忽略某类文件等）。用户会在执行 `/ships` 前自行清理不需要提交的文件，skill 只管全部提交。
 - **绝不使用 `--no-verify`** 跳过 git hooks
 - **绝不使用 `--amend`**，始终创建新 commit
 - commit 消息必须使用 HEREDOC 格式传递，且**不要**添加 `Co-Authored-By` 签名行：
